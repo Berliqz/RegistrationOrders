@@ -18,8 +18,7 @@ public class BaseConnect {
     }
     protected static PreparedStatement preparedStatement(String sql){
         try {
-          return   connection.
-                  prepareStatement(sql);
+            return connection.prepareStatement(sql);
         }catch (SQLException e){
             e.printStackTrace();
             return null;
@@ -33,7 +32,6 @@ public class BaseConnect {
         }
         return null;
     }
-
     private static void sqlCommandStatus() throws SQLException {
         createStatement().executeQuery("\n" +
                 "INSERT INTO Status (id, description) VALUES (1,'Запланирован');\n" +
@@ -53,7 +51,7 @@ public class BaseConnect {
                 "   PRIMARY KEY (id) \n" +
                 ");\n" +
                 "CREATE TABLE Mechanic (\n" +
-                "   id BIGINT NOT NULL IDENTITY,\n" +
+                "   id UUID NOT NULL IDENTITY,\n" +
                 "   name VARCHAR(255) NOT NULL,\n" +
                 "   surname VARCHAR(255) NOT NULL,\n" +
                 "   middleName VARCHAR(255)    NOT NULL,\n" +
@@ -67,15 +65,15 @@ public class BaseConnect {
                 "   PRIMARY KEY (id) \n" +
                 ");\n" +
                 "CREATE TABLE Status (\n" +
-                "   id BIGINT NOT NULL IDENTITY,\n" +
+                "   id UUID NOT NULL IDENTITY,\n" +
                 "   description VARCHAR(255) NOT NULL,\n" +
                 "   PRIMARY KEY (id) \n" +
                 ");\n" +
                 "CREATE TABLE Orders (\n" +
-                "   id BIGINT NOT NULL IDENTITY,\n" +
+                "   id UUID NOT NULL IDENTITY,\n" +
                 "   description VARCHAR(255) NOT NULL,\n" +
-                "   client BIGINT FOREIGN KEY REFERENCES Client(id),\n" +
-                "   mechanic BIGINT FOREIGN KEY REFERENCES Mechanic(id),\n" +
+                "   client UUID FOREIGN KEY REFERENCES Client(id),\n" +
+                "   mechanic UUID FOREIGN KEY REFERENCES Mechanic(id),\n" +
                 "   creature TIMESTAMP  NOT NULL,\n" +
                 "   completion TIMESTAMP ,\n" +
                 "   price double NOT NULL,\n" +

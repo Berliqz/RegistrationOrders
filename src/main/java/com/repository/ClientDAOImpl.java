@@ -1,6 +1,9 @@
 package com.repository;
 
 import com.model.Client;
+import com.sun.scenario.effect.light.SpotLight;
+
+import java.sql.SQLOutput;
 import java.util.UUID;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,11 +67,13 @@ public class ClientDAOImpl implements ClientDAO {
             e.printStackTrace();
         }
     }
+
     @Override
     public List<Client> findAllByFragments(String text) {
         PreparedStatement preparedStatement;
         String sql;
         try {
+
             UUID id = UUID.fromString(text);
             sql = "SELECT * FROM Client WHERE id= ? OR email = ? or phoneNumber or passportNumber= ? or name like ? OR surname like ? OR middleName like ?";
             preparedStatement = BaseConnect.preparedStatement(sql);
@@ -94,6 +99,7 @@ public class ClientDAOImpl implements ClientDAO {
         return resultSet(preparedStatement);
     }
 
+
     private List<Client> resultSet(PreparedStatement preparedStatement) {
         List<Client> clientList = new ArrayList<>();
         try {
@@ -117,4 +123,5 @@ public class ClientDAOImpl implements ClientDAO {
         }
         return clientList;
     }
+
 }
